@@ -8,24 +8,36 @@ divRef.insertAdjacentHTML("beforeend", imagesMarkup);
 divRef.addEventListener('click', onGalleryContainerClick);
 function createImagesMarkup(galleryItems) {
     return galleryItems.map(({ preview, original, description }) => {
-         return `<div class ="gallery__item"><a class="gallery__link" href ="${original}"><img class="gallery__image" src ="${preview}" data-sourse ="${original}" alt ="${description}"/></a></div>`;
+        return `<div class ="gallery__item">
+        <a class="gallery__link" href="${original}">
+         <img class="gallery__image"
+        src="${preview}" 
+        data-sourse="${original}"
+         alt="${description}" 
+         />
+         </a>
+         </div>`;
 }).join('');
 }
-function onGalleryContainerClick({ target }) {
-
-    evt.preventDefault();
-    if (evt.target.nodeName !== "IMG") {
+function onGalleryContainerClick(event) {
+    event.preventDefault();
+    if (event.target.nodeName !== "IMG") {
         return;
     
     }
-  
-    const instance = basicLightbox.create(`<img src="${evt.target.dataset.source}" width="800" height="600">`);
+    const instance = basicLightbox.create(
+    `<img src="${event.target.dataset.source}" width="800" height="600"/>`);
     instance.show();
-    {
-   
+    
+    divRef.addEventListener("keydown", (event) => {
+        if (event.code === "Escape") {
+            instance.close();
+        }
+    })
+  
             }
+         
         
-        };
 
     
 
